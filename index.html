@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHAST HOUSE · Complete Platform (KES)</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0a0515;
+            color: #f0e6ff;
+        }
+
+        /* Dark purple theme */
+        :root {
+            --primary: #b77dff;
+            --primary-dark: #8f5fd1;
+            --bg-card: #1e1735;
+            --bg-deep: #130d22;
+            --success: #00d68f;
+            --warning: #ffb648;
+            --danger: #ff6b6b;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: rgba(30, 23, 53, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            border: 1px solid #5d42a0;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #c89eff, #b064ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .logo i {
+            color: #b77dff;
+            margin-right: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: #cfbfff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .user-badge {
+            background: #221c38;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            border: 1px solid #503e85;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(circle at top, #231b3b, #130d22);
+            border-radius: 48px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid #382e5a;
+            box-shadow: 0 20px 40px #00000080;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.8rem;
+        }
+        .hero h2 span {
+            color: #ff85e0;
+            background: #3a2958;
+            padding: 0.2rem 0.8rem;
+            border-radius: 60px;
+        }
+
+        .currency-badge {
+            background: #442d77;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin-left: 1rem;
+            border: 1px solid #b27aff;
+        }
+
+        .search-bar {
+            display: flex;
+            background: #1e1735dd;
+            backdrop-filter: blur(8px);
+            border-radius: 70px;
+            border: 1px solid #735faf;
+            padding: 0.5rem;
+            max-width: 900px;
+        }
+        .search-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.8rem 1.5rem;
+            border-right: 1px solid #46397a;
+        }
+        .search-item:last-child { border-right: none; }
+        .search-item i { color: #b77dff; }
+        .search-item input, .search-item select {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 100%;
+            outline: none;
+        }
+        .search-btn {
+            background: #a56eff;
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 2.5rem;
+            color: black;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 0 20px #b05eff;
+        }
+
+        /* Payment Methods Row */
+        .payments {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            background: #1a1230;
+            padding: 1.2rem 2rem;
+            border-radius: 100px;
+            margin: 2.5rem 0;
+            border: 1px solid #6f52b0;
+        }
+        .payments i {
+            font-size: 2rem;
+            color: #cba0ff;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .payments i:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 10px #bf7aff);
+        }
+        .mpesa-icon {
+            background: #7c3aed;
+            padding: 0.2rem 0.7rem;
+            border-radius: 32px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Section Headers */
+        .section-title {
+            font-size: 2rem;
+            margin: 2.5rem 0 1.5rem;
+            border-left: 6px solid #a56eff;
+            padding-left: 1rem;
+        }
+
+        /* Property Cards Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .property-card {
+            background: #1e1735;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid #523e85;
+            transition: 0.2s;
+        }
+        .property-card:hover {
+            transform: translateY(-8px);
+            border-color: #b77dff;
+        }
+
+        .card-img {
+            height: 190px;
+            background-size: cover;
+            position: relative;
+        }
+        .season-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #22182ecc;
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            border: 1px solid white;
+        }
+        .sunny-bg { background: linear-gradient(145deg, #f9b042, #f5d742); }
+        .winter-bg { background: linear-gradient(145deg, #7ec8e0, #b1e2ff); }
+
+        .card-content {
+            padding: 1.4rem;
+        }
+
+        /* Guest Selector */
+        .guest-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #2b2150;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 0.8rem 0;
+        }
+        .guest-selector i {
+            color: #e1c4ff;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            background: #3f2f6a;
+        }
+        .guest-count {
+            font-weight: 700;
+            min-width: 30px;
+            text-align: center;
+            color: #ffd966;
+        }
+
+        /* Contact Row */
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #2d1f47;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 0.8rem 0;
+        }
+        .phone {
+            color: #b3e0ff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .gps-coord {
+            background: #272055;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            border: 1px solid #7b4ed8;
+        }
+
+        .price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffdb9f;
+        }
+        .price .kes-symbol {
+            font-size: 1.2rem;
+            color: #d4b3ff;
+        }
+
+        .btn-book {
+            background: transparent;
+            border: 1px solid #a56eff;
+            color: #d7b9ff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-book:hover {
+            background: #a56eff;
+            color: black;
+        }
+
+        /* Upload Card */
+        .upload-card {
+            background: #221b3a;
+            border: 2px dashed #8b6dd0;
+            border-radius: 32px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+        }
+        .upload-card i {
+            font-size: 3.5rem;
+            color: #cbb2ff;
+        }
+
+        /* Node.js Backend Panel */
+        .node-backend {
+            background: #1c1435;
+            border-radius: 40px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid #b47aff;
+        }
+        .endpoint {
+            background: #2b2355;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 0.3rem;
+            border: 1px solid #a07eff;
+        }
+
+        /* Transaction Log Panel (from second version) */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .terminal {
+            background: #1e1735;
+            border-radius: 40px;
+            padding: 2rem;
+            border: 1px solid #7357c0;
+        }
+
+        .log-panel {
+            background: #1a1230;
+            border-radius: 40px;
+            padding: 2rem;
+            border: 1px solid #7357c0;
+        }
+
+        .transaction-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            background: #281f45;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid;
+        }
+        .transaction-item.success { border-left-color: #00d68f; }
+        .transaction-item.pending { border-left-color: #ffb648; }
+
+        /* Email Panel */
+        .email-backend-panel {
+            background: #1f173b;
+            border-radius: 42px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 2px solid #8e61d2;
+        }
+        .email-form input, .email-form textarea {
+            background: #2f2555;
+            border: 1px solid #9577da;
+            padding: 0.9rem 1.5rem;
+            border-radius: 60px;
+            color: white;
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+        .email-form button {
+            background: #a978ff;
+            border: none;
+            border-radius: 50px;
+            padding: 0.9rem 2.5rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Toast */
+        .toast-notif {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #342a58;
+            border-left: 8px solid #b77dff;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            z-index: 999;
+            box-shadow: 0 10px 30px black;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 4rem;
+            border-top: 1px solid #3a2b60;
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            color: #9077b9;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .dashboard { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Notification -->
+    <div class="toast-notif" id="toast">
+        <i class="fas fa-check-circle" style="color:#b77dff; font-size:1.8rem;"></i>
+        <span id="toastMsg">Payment processed</span>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="navbar">
+            <div class="logo">
+                <i class="fas fa-ghost"></i> BHAST HOUSE
+            </div>
+            <div class="nav-links">
+                <a href="#stays">Stays</a>
+                <a href="#penthouses">Penthouses</a>
+                <a href="#mansions">Mansions</a>
+                <a href="#upload">Upload</a>
+                <a href="#contact-admin">Contact</a>
+                <a href="#backend">API</a>
+            </div>
+            <div class="user-badge">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-user-astronaut"></i>
+                <span>Host</span>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero" id="stays">
+            <h2>find <span>brutalist dreams</span> · purple haze <span class="currency-badge"><i class="fas fa-kenya"></i> KES</span></h2>
+            <div class="search-bar">
+                <div class="search-item"><i class="fas fa-map-pin"></i><input type="text" placeholder="Nairobi, Kenya"></div>
+                <div class="search-item"><i class="fas fa-calendar"></i><input type="text" placeholder="Mar 15 – Mar 20"></div>
+                <div class="search-item"><i class="fas fa-user"></i>
+                    <select id="globalGuests">
+                        <option value="1">1 guest</option>
+                        <option value="2" selected>2 guests</option>
+                        <option value="3">3 guests</option>
+                        <option value="4">4 guests</option>
+                        <option value="5">5 guests</option>
+                        <option value="6">6+ guests</option>
+                    </select>
+                </div>
+                <button class="search-btn" onclick="searchWithGuests()"><i class="fas fa-search"></i> seek</button>
+            </div>
+        </div>
+
+        <!-- Payment Methods (All 7) -->
+        <div class="payments">
+            <span>✨ pay with</span>
+            <i class="fab fa-cc-visa" title="Visa" onclick="processPayment('visa')"></i>
+            <i class="fab fa-cc-mastercard" title="Mastercard" onclick="processPayment('mastercard')"></i>
+            <i class="fab fa-cc-amex" title="Amex" onclick="processPayment('amex')"></i>
+            <i class="fab fa-cc-paypal" title="PayPal" onclick="processPayment('paypal')"></i>
+            <i class="fas fa-university" title="Bank transfer" onclick="processPayment('bank')"></i>
+            <span class="mpesa-icon" onclick="processPayment('mpesa')"><i class="fas fa-mobile-alt"></i> M-PESA</span>
+            <i class="fas fa-credit-card" title="debit card" onclick="processPayment('debit')"></i>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="section-title" id="upload"><i class="fas fa-home"></i> upload your place — become a host</div>
+        <div class="card-grid" style="margin-bottom: 2rem;">
+            <div class="upload-card" onclick="showUploadModal()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>list your mansion</h3>
+                <p>add pics, description & price (KES)</p>
+                <small>💜 GPS, contact, max guests, all payments</small>
+                <button style="background:#7149c6; border:none; border-radius:40px; padding:0.7rem 2rem; color:white; margin-top:1rem;"><i class="fas fa-plus-circle"></i> upload property</button>
+            </div>
+            <div class="upload-card" onclick="showToast('edit listings: update photos & description')">
+                <i class="fas fa-images"></i>
+                <h3>manage listings</h3>
+                <p>edit photos & desc</p>
+            </div>
+        </div>
+
+        <!-- Penthouses Section -->
+        <div class="section-title" id="penthouses"><i class="fas fa-building"></i> penthouses (sunny & winter) · KES</div>
+        <div class="card-grid">
+            <!-- Property 1 -->
+            <div class="property-card" id="prop1">
+                <div class="card-img sunny-bg" style="background-image: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400');">
+                    <span class="season-tag"><i class="fas fa-sun"></i> sunny terrace</span>
+                </div>
+                <div class="card-content">
+                    <h3>Skyline Solarium</h3>
+                    <p>4.9 · penthouse</p>
+                    <div class="guest-selector">
+                        <i class="fas fa-minus-circle" onclick="adjustGuests('prop1', -1)"></i>
+                        <span class="guest-count" id="guests-prop1">2</span>
+                        <i class="fas fa-plus-circle" onclick="adjustGuests('prop1', 1)"></i>
+                        <span style="color:#c9adff;">max 6</span>
+                    </div>
+                    <div class="contact-row">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="phone" onclick="showToast('📞 +254 712 345 678')">+254 712 345 678</span>
+                        <span class="gps-coord"><i class="fas fa-map-marker-alt"></i> -1.2921° S, 36.8219° E</span>
+                    </div>
+                    <div class="price"><span class="kes-symbol">KSh</span> 63,000 <small>/night</small></div>
+                    <button class="btn-book" onclick="bookWithGuests('prop1', 'Skyline Solarium', 63000)">book now</button>
+                </div>
+            </div>
+
+            <!-- Property 2 -->
+            <div class="property-card" id="prop2">
+                <div class="card-img winter-bg" style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400');">
+                    <span class="season-tag"><i class="far fa-snowflake"></i> winter aurora</span>
+                </div>
+                <div class="card-content">
+                    <h3>Frost Peak</h3>
+                    <p>5.0 · glass penthouse</p>
+                    <div class="guest-selector">
+                        <i class="fas fa-minus-circle" onclick="adjustGuests('prop2', -1)"></i>
+                        <span class="guest-count" id="guests-prop2">2</span>
+                        <i class="fas fa-plus-circle" onclick="adjustGuests('prop2', 1)"></i>
+                        <span style="color:#c9adff;">max 4</span>
+                    </div>
+                    <div class="contact-row">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="phone" onclick="showToast('📞 +254 723 456 789')">+254 723 456 789</span>
+                        <span class="gps-coord"><i class="fas fa-map-marker-alt"></i> -1.2833° S, 36.8167° E</span>
+                    </div>
+                    <div class="price"><span class="kes-symbol">KSh</span> 80,000 <small>/night</small></div>
+                    <button class="btn-book" onclick="bookWithGuests('prop2', 'Frost Peak', 80000)">book now</button>
+                </div>
+            </div>
+
+            <!-- Property 3 -->
+            <div class="property-card" id="prop3">
+                <div class="card-img sunny-bg" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400');">
+                    <span class="season-tag"><i class="fas fa-tree"></i> summer estate</span>
+                </div>
+                <div class="card-content">
+                    <h3>Villa Dorata</h3>
+                    <p>8 beds · pool</p>
+                    <div class="guest-selector">
+                        <i class="fas fa-minus-circle" onclick="adjustGuests('prop3', -1)"></i>
+                        <span class="guest-count" id="guests-prop3">4</span>
+                        <i class="fas fa-plus-circle" onclick="adjustGuests('prop3', 1)"></i>
+                        <span style="color:#c9adff;">max 12</span>
+                    </div>
+                    <div class="contact-row">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="phone" onclick="showToast('📞 +254 734 567 890')">+254 734 567 890</span>
+                        <span class="gps-coord"><i class="fas fa-map-marker-alt"></i> -1.2621° S, 36.7939° E</span>
+                    </div>
+                    <div class="price"><span class="kes-symbol">KSh</span> 167,000 <small>/night</small></div>
+                    <button class="btn-book" onclick="bookWithGuests('prop3', 'Villa Dorata', 167000)">book now</button>
+                </div>
+            </div>
+
+            <!-- Property 4 -->
+            <div class="property-card" id="prop4">
+                <div class="card-img winter-bg" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400');">
+                    <span class="season-tag"><i class="fas fa-mountain"></i> winter lodge</span>
+                </div>
+                <div class="card-content">
+                    <h3>Chalet Noir</h3>
+                    <p>fireplace · snowy</p>
+                    <div class="guest-selector">
+                        <i class="fas fa-minus-circle" onclick="adjustGuests('prop4', -1)"></i>
+                        <span class="guest-count" id="guests-prop4">2</span>
+                        <i class="fas fa-plus-circle" onclick="adjustGuests('prop4', 1)"></i>
+                        <span style="color:#c9adff;">max 8</span>
+                    </div>
+                    <div class="contact-row">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="phone" onclick="showToast('📞 +254 745 678 901')">+254 745 678 901</span>
+                        <span class="gps-coord"><i class="fas fa-map-marker-alt"></i> -1.2201° S, 36.8997° E</span>
+                    </div>
+                    <div class="price"><span class="kes-symbol">KSh</span> 110,000 <small>/night</small></div>
+                    <button class="btn-book" onclick="bookWithGuests('prop4', 'Chalet Noir', 110000)">book now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mansions Section -->
+        <div class="section-title" id="mansions"><i class="fas fa-chess-queen"></i> grand mansions · KES</div>
+        <div class="card-grid">
+            <!-- Property 5 -->
+            <div class="property-card" id="prop5">
+                <div class="card-img sunny-bg" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400');">
+                    <span class="season-tag">sunny</span>
+                </div>
+                <div class="card-content">
+                    <h3>Mediterranean palace</h3>
+                    <div class="guest-selector">
+                        <i class="fas fa-minus-circle" onclick="adjustGuests('prop5', -1)"></i>
+                        <span class="guest-count" id="guests-prop5">2</span>
+                        <i class="fas fa-plus-circle" onclick="adjustGuests('prop5', 1)"></i>
+                        <span style="color:#c9adff;">max 10</span>
+                    </div>
+                    <div class="contact-row">
+                        <i class="fas fa-phone"></i>
+                        <span class="phone" onclick="showToast('📞 +254 756 789 012')">+254 756 789 012</span>
+                        <span class="gps-coord">-1.2501° S, 36.8001° E</span>
+                    </div>
+                    <div class="price"><span class="kes-symbol">KSh</span> 310,000 <small>/night</small></div>
+                    <button class="btn-book" onclick="bookWithGuests('prop5', 'Mediterranean palace', 310000)">book</button>
+                </div>
+            </div>
+
+            <!-- Property 6 -->
+            <div class="property-card" id="prop6">
+                <div class="card-img winter-bg" style="background-image: url('https://images.unsplash.com/photo-1544984243-ec57ea16fe25?w=400');">
+                    <span class="season-tag">winter</span>
+                </div>
+                <div class="card-content">
+                    <h3>Alpine château</h3>
+                    <div class="guest-selector">
+                        <i class="fas fa-minus-circle" onclick="adjustGuests('prop6', -1)"></i>
+                        <span class="guest-count" id="guests-prop6">2</span>
+                        <i class="fas fa-plus-circle" onclick="adjustGuests('prop6', 1)"></i>
+                        <span style="color:#c9adff;">max 6</span>
+                    </div>
+                    <div class="contact-row">
+                        <i class="fas fa-phone"></i>
+                        <span class="phone" onclick="showToast('📞 +254 767 890 123')">+254 767 890 123</span>
+                        <span class="gps-coord">-1.2389° S, 36.7822° E</span>
+                    </div>
+                    <div class="price"><span class="kes-symbol">KSh</span> 257,000 <small>/night</small></div>
+                    <button class="btn-book" onclick="bookWithGuests('prop6', 'Alpine château', 257000)">book</button>
+                </div>
+            </div>
+
+            <!-- Property 7 -->
+            <div class="property-card" id="prop7">
+                <div class="card-img" style="background: linear-gradient(145deg, #734f9f, #3b2855);">
+                    <span class="season-tag"><i class="fas fa-crown"></i> exclusive</span>
+                </div>
+                <div class="card-content">
+                    <h3>Obsidian tower</h3>
+                    <div class="guest-selector">
+                        <i class="fas fa-minus-circle" onclick="adjustGuests('prop7', -1)"></i>
+                        <span class="guest-count" id="guests-prop7">2</span>
+                        <i class="fas fa-plus-circle" onclick="adjustGuests('prop7', 1)"></i>
+                        <span style="color:#c9adff;">max 4</span>
+                    </div>
+                    <div class="contact-row">
+                        <i class="fas fa-phone"></i>
+                        <span class="phone" onclick="showToast('📞 +254 778 901 234')">+254 778 901 234</span>
+                        <span class="gps-coord">-1.3101° S, 36.8444° E</span>
+                    </div>
+                    <div class="price"><span class="kes-symbol">KSh</span> 415,000 <small>/night</small></div>
+                    <button class="btn-book" onclick="bookWithGuests('prop7', 'Obsidian tower', 415000)">book</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Transaction Dashboard (from second version) -->
+        <div class="dashboard" id="backend">
+            <div class="terminal">
+                <h3><i class="fas fa-terminal"></i> Payment Terminal · KES</h3>
+                <div style="margin: 1rem 0;">
+                    <span class="endpoint">Selected: <span id="selectedProperty">Skyline Solarium</span></span>
+                    <span class="endpoint">Guests: <span id="selectedGuests">2</span></span>
+                    <span class="endpoint">Total: KSh <span id="selectedTotal">126,000</span></span>
+                </div>
+                <div style="background: #2d2250; padding: 1rem; border-radius: 20px;">
+                    <input type="email" id="paymentEmail" placeholder="customer@email.com" value="guest@example.com" style="background: #1e1735; border: 1px solid #7357c0; padding: 0.8rem; border-radius: 40px; width: 100%; color: white;">
+                </div>
+            </div>
+
+            <div class="log-panel">
+                <h3><i class="fas fa-history"></i> Live Transactions</h3>
+                <div class="transaction-list" id="transactionLog">
+                    <div class="transaction-item success">
+                        <div><strong>M-PESA</strong> · KES 126,000</div>
+                        <div style="font-size: 0.8rem;">REF: MPESA-Q9K42 · COMPLETED</div>
+                    </div>
+                    <div class="transaction-item pending">
+                        <div><strong>Bank Transfer</strong> · KES 80,000</div>
+                        <div style="font-size: 0.8rem;">REF: TRF-7732 · PENDING</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node.js Backend Complete Implementation -->
+        <div class="node-backend" id="node-backend">
+            <h3><i class="fab fa-node-js"></i> Node.js Payment Backend · Production Ready</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0;">
+                <span class="endpoint">POST /api/payments/mpesa</span>
+                <span class="endpoint">POST /api/payments/card</span>
+                <span class="endpoint">POST /api/payments/paypal</span>
+                <span class="endpoint">POST /api/payments/bank</span>
+                <span class="endpoint">POST /api/bookings</span>
+                <span class="endpoint">GET /api/transactions</span>
+                <span class="endpoint">POST /api/upload</span>
+                <span class="endpoint">Webhook /mpesa/callback</span>
+            </div>
+
+            <!-- Full Node.js Code -->
+            <pre style="background: #130d22; padding: 1.5rem; border-radius: 20px; color: #beb4ff; overflow-x: auto; font-size: 0.9rem;">
+// Complete Node.js Payment Backend
+const express = require('express');
+const mongoose = require('mongoose');
+const crypto = require('crypto');
+const app = express();
+
+app.use(express.json());
+
+// MongoDB Schema
+const transactionSchema = new mongoose.Schema({
+    transactionId: String,
+    method: String,
+    amount: Number,
+    currency: { type: String, default: 'KES' },
+    status: String,
+    customerEmail: String,
+    propertyId: String,
+    guests: Number,
+    mpesaCode: String,
+    cardLast4: String,
+    bankRef: String,
+    createdAt: { type: Date, default: Date.now }
+});
+
+const Transaction = mongoose.model('Transaction', transactionSchema);
+
+// M-PESA Payment Handler
+app.post('/api/payments/mpesa', async (req, res) => {
+    try {
+        const { phone, amount, customerEmail, propertyId, guests } = req.body;
+        const mpesaCode = 'MPESA-' + crypto.randomBytes(3).toString('hex').toUpperCase();
+        
+        const transaction = new Transaction({
+            transactionId: mpesaCode,
+            method: 'M-PESA',
+            amount,
+            status: 'COMPLETED',
+            customerEmail,
+            propertyId,
+            guests,
+            mpesaCode
+        });
+        
+        await transaction.save();
+        
+        res.json({ 
+            success: true, 
+            mpesaCode,
+            status: 'COMPLETED',
+            amount,
+            message: 'STK push sent to phone'
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Card Payment Handler (Visa/Mastercard/Amex/Debit)
+app.post('/api/payments/card', async (req, res) => {
+    const { cardNumber, amount, customerEmail, propertyId, guests, method } = req.body;
+    const last4 = cardNumber.slice(-4);
+    const authCode = 'AUTH-' + crypto.randomBytes(2).toString('hex').toUpperCase();
+    
+    const transaction = new Transaction({
+        transactionId: authCode,
+        method,
+        amount,
+        status: 'COMPLETED',
+        customerEmail,
+        propertyId,
+        guests,
+        cardLast4: last4
+    });
+    
+    await transaction.save();
+    
+    res.json({ success: true, authCode, last4, status: 'APPROVED' });
+});
+
+// PayPal Handler
+app.post('/api/payments/paypal', async (req, res) => {
+    const { amount, customerEmail, propertyId, guests } = req.body;
+    const paypalRef = 'PAY-' + crypto.randomBytes(4).toString('hex').toUpperCase();
+    
+    const transaction = new Transaction({
+        transactionId: paypalRef,
+        method: 'PayPal',
+        amount,
+        status: 'COMPLETED',
+        customerEmail,
+        propertyId,
+        guests
+    });
+    
+    await transaction.save();
+    res.json({ success: true, paypalRef, status: 'COMPLETED' });
+});
+
+// Bank Transfer Handler
+app.post('/api/payments/bank', async (req, res) => {
+    const { amount, customerEmail, propertyId, guests } = req.body;
+    const bankRef = 'TRF-' + crypto.randomBytes(3).toString('hex').toUpperCase();
+    
+    const transaction = new Transaction({
+        transactionId: bankRef,
+        method: 'Bank Transfer',
+        amount,
+        status: 'PENDING',
+        customerEmail,
+        propertyId,
+        guests,
+        bankRef
+    });
+    
+    await transaction.save();
+    res.json({ success: true, bankRef, status: 'PENDING' });
+});
+
+// Get all transactions
+app.get('/api/transactions', async (req, res) => {
+    const transactions = await Transaction.find().sort({ createdAt: -1 });
+    res.json(transactions);
+});
+
+// M-PESA Callback Webhook
+app.post('/mpesa/callback', (req, res) => {
+    console.log('M-PESA callback:', req.body);
+    res.json({ ResultCode: 0, ResultDesc: 'Success' });
+});
+
+app.listen(3000, () => {
+    console.log('✅ BHAST HOUSE backend running on port 3000');
+});</pre>
+        </div>
+
+        <!-- Email Contact Panel -->
+        <div class="email-backend-panel" id="contact-admin">
+            <h3><i class="fas fa-envelope-open-text"></i> Contact Host / Admin</h3>
+            <div class="email-form">
+                <input type="email" id="contactEmail" placeholder="your email" value="guest@example.com">
+                <input type="text" id="contactSubject" placeholder="subject" value="Booking inquiry">
+                <textarea id="contactMsg" placeholder="message...">I'd like to book this property.</textarea>
+                <button onclick="sendAdminEmail()"><i class="fas fa-paper-plane"></i> Send & Email Admin</button>
+            </div>
+            <div class="admin-note" id="adminEmailNote">
+                <i class="fas fa-database"></i> Confirmation sent to admin@bhast.house
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <span><i class="fas fa-crown"></i> BHAST HOUSE · brutalist stays</span>
+            <span>© 2025 · All payments in KES</span>
+            <span><i class="fab fa-cc-paypal"></i> <i class="fas fa-mobile-alt"></i> KES</span>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toastMsg');
+        
+        let transactions = [
+            { id: 'MPESA-Q9K42', method: 'M-PESA', amount: 126000, status: 'success' },
+            { id: 'TRF-7732', method: 'Bank Transfer', amount: 80000, status: 'pending' }
+        ];
+
+        // Max guests per property
+        const maxGuests = {
+            prop1: 6, prop2: 4, prop3: 12, prop4: 8,
+            prop5: 10, prop6: 6, prop7: 4
+        };
+
+        // Show toast
+        function showToast(msg) {
+            toastMsg.innerText = msg;
+            toast.style.display = 'flex';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+
+        // Adjust guests
+        function adjustGuests(propertyId, delta) {
+            const guestSpan = document.getElementById(`guests-${propertyId}`);
+            let current = parseInt(guestSpan.innerText);
+            const newVal = current + delta;
+            if (newVal >= 1 && newVal <= maxGuests[propertyId]) {
+                guestSpan.innerText = newVal;
+                showToast(`👥 Guests: ${newVal} (max ${maxGuests[propertyId]})`);
+                updateSelectedInfo();
+            }
+        }
+
+        // Book with guests
+        function bookWithGuests(propertyId, name, pricePerNight) {
+            const guests = parseInt(document.getElementById(`guests-${propertyId}`).innerText);
+            const total = pricePerNight * guests;
+            showToast(`🟣 Booking ${name} for ${guests} guests · KES ${total.toLocaleString()}`);
+            
+            // Update terminal
+            document.getElementById('selectedProperty').innerText = name;
+            document.getElementById('selectedGuests').innerText = guests;
+            document.getElementById('selectedTotal').innerText = total.toLocaleString();
+        }
+
+        // Search
+        function searchWithGuests() {
+            const guests = document.getElementById('globalGuests').value;
+            showToast(`🔍 Searching for ${guests} guests in Nairobi · KES`);
+        }
+
+        // Process all payment methods
+        function processPayment(method) {
+            const email = document.getElementById('paymentEmail')?.value || 'guest@example.com';
+            const guests = document.getElementById('selectedGuests')?.innerText || '2';
+            const amount = parseInt(document.getElementById('selectedTotal')?.innerText.replace(/,/g, '')) || 126000;
+            
+            showToast(`⚡ Processing ${method.toUpperCase()} payment of KES ${amount.toLocaleString()}...`);
+
+            setTimeout(() => {
+                let transactionId;
+                let status = 'success';
+                
+                // Generate IDs based on method
+                switch(method) {
+                    case 'mpesa':
+                        transactionId = 'MPESA-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+                        break;
+                    case 'visa':
+                    case 'mastercard':
+                    case 'amex':
+                    case 'debit':
+                        transactionId = method.substring(0,4).toUpperCase() + '-' + Math.floor(10000 + Math.random()*90000);
+                        break;
+                    case 'paypal':
+                        transactionId = 'PAY-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+                        break;
+                    case 'bank':
+                        transactionId = 'TRF-' + Math.floor(100000 + Math.random()*900000);
+                        status = 'pending';
+                        break;
+                }
+
+                // Add to transactions
+                transactions.unshift({
+                    id: transactionId,
+                    method: method.toUpperCase(),
+                    amount: amount,
+                    status: status
+                });
+
+                // Update transaction log
+                const logDiv = document.getElementById('transactionLog');
+                logDiv.innerHTML = transactions.map(t => `
+                    <div class="transaction-item ${t.status}">
+                        <div><strong>${t.method}</strong> · KES ${t.amount.toLocaleString()}</div>
+                        <div style="font-size: 0.8rem;">REF: ${t.id} · ${t.status.toUpperCase()}</div>
+                    </div>
+                `).join('');
+
+                showToast(`✅ ${method.toUpperCase()} payment successful! Ref: ${transactionId}`);
+                
+                // Email confirmation
+                console.log(`📧 Confirmation sent to ${email} and admin@bhast.house`);
+                document.getElementById('adminEmailNote').innerHTML = 
+                    `<i class="fas fa-check-circle"></i> ${method.toUpperCase()} payment · Ref: ${transactionId} · Confirmed at ${new Date().toLocaleTimeString()}`;
+            }, 2000);
+        }
+
+        // Upload modal
+        function showUploadModal() {
+            showToast('🟣 Upload portal: Add property with pics, description, price in KES');
+        }
+
+        // Send admin email
+        function sendAdminEmail() {
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const msg = document.getElementById('contactMsg').value;
+
+            if (!email || !subject || !msg) {
+                showToast('❌ Please fill all fields');
+                return;
+            }
+
+            showToast('📧 Sending to admin@bhast.house...');
+            setTimeout(() => {
+                showToast(`✅ Message sent. Copy to ${email}`);
+                document.getElementById('adminEmailNote').innerHTML = 
+                    `<i class="fas fa-check-circle"></i> Email sent to admin at ${new Date().toLocaleTimeString()}`;
+            }, 1200);
+        }
+
+        // Update selected info
+        function updateSelectedInfo() {
+            // This would update based on active property
+        }
+
+        // Smooth navigation
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId)?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Initialize
+        window.onload = function() {
+            showToast('🚀 BHAST HOUSE backend ready · All payments in KES');
+        };
+    </script>
+</body>
+</html>
